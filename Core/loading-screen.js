@@ -61,7 +61,6 @@
           updateProgress(100 * progress);
       }).then((unityInstance) => {
           unityInstanceRef = unityInstance;
-          //loadProgress();
           hideLoadingScreen();
           focusOnGame();
       }).catch((message) => {
