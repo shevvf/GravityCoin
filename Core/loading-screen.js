@@ -64,7 +64,7 @@
           unityInstanceRef = unityInstance;
           hideLoadingScreen();
           focusOnGame();
-          unityInstanceRef.SendMessage('Progress', 'SetWebAppUser', userDataJson);
+          unityInstanceRef.SendMessage('Backend/Progress', 'SetWebAppUser', userDataJson);
       }).catch((message) => {
           alert(message);
       });
