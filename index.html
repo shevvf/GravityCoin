@@ -18,25 +18,20 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {         
             window.Telegram.WebApp.ready();
-            window.Telegram.WebApp.expand();   
+            window.Telegram.WebApp.expand();
 
             var user = window.Telegram.WebApp.initDataUnsafe.user;
 
-            var userId = user.id;
-            var firstName = user.first_name;
-            var lastName = user.last_name || '';
-            var username = user.username || '';
-            var languageCode = user.language_code || '';
-            var photoUrl = user.photo_url || ''; 
-            var isPremium = user.is_premium || false; 
-    
-            console.log('User ID:', userId);
-            console.log('First Name:', firstName);
-            console.log('Last Name:', lastName);
-            console.log('Username:', username);
-            console.log('Language Code:', languageCode);
-            console.log('Photo URL:', photoUrl);
-            console.log('Is Premium:', isPremium);
+            var userData = {
+                id: user.id,
+                firstName: user.first_name,
+                lastName: user.last_name || '',
+                username: user.username || '',
+                languageCode: user.language_code || '',
+                photoUrl: user.photo_url || '',
+                isPremium: user.is_premium || false
+            };   
+            userDataJson = JSON.stringify(userData);
         });
     </script>
 </head>

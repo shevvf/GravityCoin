@@ -5,6 +5,7 @@
 //   });
   var unityInstanceRef;
   var unsubscribe;
+  var userDataJson;
   const container = document.querySelector("#unity-container");
   const canvas = document.querySelector("#unity-canvas");
   const loadingRoot = document.getElementById("loading-screen");
@@ -63,6 +64,7 @@
           unityInstanceRef = unityInstance;
           hideLoadingScreen();
           focusOnGame();
+          unityInstanceRef.SendMessage('Progress', 'SetWebAppUser', userDataJson);
       }).catch((message) => {
           alert(message);
       });
