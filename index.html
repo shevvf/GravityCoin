@@ -19,24 +19,24 @@
         document.addEventListener('DOMContentLoaded', function() {         
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand();   
-            window.Telegram.WebApp.initDataUnsafe;      
-            console.log(window.Telegram.WebApp.initDataUnsafe);
 
             var user = window.Telegram.WebApp.initDataUnsafe.user;
 
-            // Now you can access fields of the user object
             var userId = user.id;
             var firstName = user.first_name;
-            var lastName = user.last_name || ''; // Optional, handle if lastName is undefined
-            var username = user.username || ''; // Optional, handle if username is undefined
-            var languageCode = user.language_code || ''; // Optional, handle if language_code is undefined
-
-            // Example usage
+            var lastName = user.last_name || '';
+            var username = user.username || '';
+            var languageCode = user.language_code || '';
+            var photoUrl = user.photo_url || ''; 
+            var isPremium = user.is_premium || false; 
+    
             console.log('User ID:', userId);
             console.log('First Name:', firstName);
             console.log('Last Name:', lastName);
             console.log('Username:', username);
             console.log('Language Code:', languageCode);
+            console.log('Photo URL:', photoUrl);
+            console.log('Is Premium:', isPremium);
         });
     </script>
 </head>
