@@ -10,24 +10,22 @@
     });
 }
 
-function loadProgress() {
-    return getAllKeys()
-        .then(keys => {
-            if (keys && keys.length > 0) {
-                return getValues(keys);
-            } else {
-                console.log('No keys found in storage');
-                return [];
+function loadProgress(callback) {
+    getAllKeys(function(keys) {
+        if (keys && keys.length > 0) {
+            getValues(keys, function(values) {
+                console.log('Retrieved keys and values:', values);
+                if (callback) {
+                    callback(values);
+                }
+            });
+        } else {
+            console.log('No keys found in storage');
+            if (callback) {
+                callback(null);
             }
-        })
-        .then(values => {
-            console.log('Retrieved keys and values:', values);
-            return values; 
-        })
-        .catch(err => {
-            console.error('Error occurred:', err);
-            return [];
-        });
+        }
+    });
 }
 
 function saveProgress(key, value){
