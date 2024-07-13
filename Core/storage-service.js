@@ -1,54 +1,60 @@
-﻿﻿function loadProgres(){
-    getAllKeys(function(keys) {
-        if (keys && keys.length > 0) {
-            getValues(keys, function(values) {
-                console.log('Retrieved keys and values:', values);
-            });
-        } else {
-            console.log('No keys found in storage');
-        }
-    });
-}
-
-function loadProgress() {
+﻿﻿function getAllKeys() {
     return new Promise((resolve, reject) => {
-        getAllKeys(function(keys) {
-            if (keys && keys.length > 0) {
-                getValues(keys, function(values) {
-                    console.log('Retrieved keys and values:', values);
-                    resolve(values);
-                });
+        window.Telegram.WebApp.CloudStorage.getKeys((error, keys) => {
+            if (error) {
+                reject('Error getting the keys: ' + error);
             } else {
-                console.log('No keys found in storage');
-                resolve(null);
+                resolve(keys);
             }
         });
     });
 }
 
-// function loadProgress(callback) {
-//     getAllKeys(function(keys) {
-//         if (keys && keys.length > 0) {
-//             getValues(keys, function(values) {
-//                 console.log('Retrieved keys and values:', values);
-//                 if (callback) {
-//                     callback(values);
-//                 }
-//             });
-//         } else {
-//             console.log('No keys found in storage');
-//             if (callback) {
-//                 callback(null);
-//             }
-//         }
-//     });
-// }
+// Преобразование getValues в функцию, возвращающую Promise
+function getValues(keys) {
+    return new Promise((resolve, reject) => {
+        window.Telegram.WebApp.CloudStorage.getItems(keys, (error, values) => {
+            if (error) {
+                reject('Error getting the values: ' + error);
+            } else {
+                resolve(values);
+            }
+        });
+    });
+}
 
+// Функция для загрузки прогресса с использованием Promises
+function loadProgress() {
+    return getAllKeys()
+        .then(keys => {
+            if (keys && keys.length > 0) {
+                return getValues(keys);
+            } else {
+                console.log('No keys found in storage');
+                return null;
+            }
+        })
+        .then(values => {
+            if (values) {
+                console.log('Retrieved keys and values:', values);
+                return values;
+            } else {
+                return null;
+            }
+        })
+        .catch(error => {
+            console.error('Error retrieving keys and values:', error);
+            return null;
+        });
+}
+
+// Функция для сохранения прогресса
 function saveProgress(key, jsonValue){
     var value = JSON.parse(jsonValue);
     setValue(key, value);
 }
 
+// Функция для установки значения в хранилище
 function setValue(key, value) {
     window.Telegram.WebApp.CloudStorage.setItem(key, value, function(error, success) {
         if (error) {
@@ -59,6 +65,7 @@ function setValue(key, value) {
     });
 }
 
+// Функция для получения значения из хранилища
 function getValue(key) {
     window.Telegram.WebApp.CloudStorage.getItem(key, function(error, value) {
         if (error) {
@@ -69,16 +76,7 @@ function getValue(key) {
     });
 }
 
-function getValues(keys) {
-    window.Telegram.WebApp.CloudStorage.getItems(keys, function(error, values) {
-        if (error) {
-            console.error('Error getting the values:', error);
-        } else {
-            console.log('Retrieved values:', values);
-        }
-    });
-}
-
+// Функция для удаления значения из хранилища
 function removeValue(key) {
     window.Telegram.WebApp.CloudStorage.removeItem(key, function(error, success) {
         if (error) {
@@ -89,22 +87,13 @@ function removeValue(key) {
     });
 }
 
+// Функция для удаления нескольких значений из хранилища
 function removeValues(keys) {
     window.Telegram.WebApp.CloudStorage.removeItems(keys, function(error, success) {
         if (error) {
             console.error('Error removing the values:', error);
         } else if (success) {
             console.log('Values successfully removed');
-        }
-    });
-}
-
-function getAllKeys() {
-    window.Telegram.WebApp.CloudStorage.getKeys(function(error, keys) {
-        if (error) {
-            console.error('Error getting the keys:', error);
-        } else {
-            console.log('Retrieved keys:', keys);
         }
     });
 }

@@ -28,17 +28,17 @@
           //      }
           //  });
 
-            loadProgress().then(values => {
-                if (values) {
-                    // Do something with the retrieved values
-                    console.log('Values in another place:', values);
-                } else {
-                    console.log('No values to process');
-                }
+          loadProgress().then(values => {
+            if (values) {
+                
+                console.log('Values in another place:', values);
+            } else {
+                console.log('No values to process');
+            }
             }).catch(error => {
-                console.error('Error retrieving values:', error);
+                 console.error('Error retrieving values:', error);
             });
-     
+
             var user = window.Telegram.WebApp.initDataUnsafe.user;
 
             var userData = {
