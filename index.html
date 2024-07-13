@@ -19,7 +19,7 @@
         document.addEventListener('DOMContentLoaded', function() {         
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand();
-
+            console.log(window.Telegram.WebApp.version);
             var user = window.Telegram.WebApp.initDataUnsafe.user;
 
             var userData = {
