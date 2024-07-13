@@ -20,10 +20,8 @@
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand();
 
-            var progress
             loadProgress(function(values) {
                 if (values) {
-                    progress = values;
                     console.log('Values in another place:', values);
                 } else {
                     console.log('No values to process');
