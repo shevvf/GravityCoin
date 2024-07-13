@@ -10,23 +10,39 @@
     });
 }
 
-function loadProgress(callback) {
-    getAllKeys(function(keys) {
-        if (keys && keys.length > 0) {
-            getValues(keys, function(values) {
-                console.log('Retrieved keys and values:', values);
-                if (callback) {
-                    callback(values);
-                }
-            });
-        } else {
-            console.log('No keys found in storage');
-            if (callback) {
-                callback(null);
+function loadProgress() {
+    return new Promise((resolve, reject) => {
+        getAllKeys(function(keys) {
+            if (keys && keys.length > 0) {
+                getValues(keys, function(values) {
+                    console.log('Retrieved keys and values:', values);
+                    resolve(values);
+                });
+            } else {
+                console.log('No keys found in storage');
+                resolve(null);
             }
-        }
+        });
     });
 }
+
+// function loadProgress(callback) {
+//     getAllKeys(function(keys) {
+//         if (keys && keys.length > 0) {
+//             getValues(keys, function(values) {
+//                 console.log('Retrieved keys and values:', values);
+//                 if (callback) {
+//                     callback(values);
+//                 }
+//             });
+//         } else {
+//             console.log('No keys found in storage');
+//             if (callback) {
+//                 callback(null);
+//             }
+//         }
+//     });
+// }
 
 function saveProgress(key, jsonValue){
     var value = JSON.parse(jsonValue);

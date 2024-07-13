@@ -20,12 +20,23 @@
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand();
 
-            loadProgress(function(values) {
+          //  loadProgress(function(values) {
+          //      if (values) {
+          //          console.log('Values in another place:', values);
+          //      } else {
+          //          console.log('No values to process');
+          //      }
+          //  });
+
+            loadProgres().then(values => {
                 if (values) {
+                    // Do something with the retrieved values
                     console.log('Values in another place:', values);
                 } else {
                     console.log('No values to process');
                 }
+            }).catch(error => {
+                console.error('Error retrieving values:', error);
             });
      
             var user = window.Telegram.WebApp.initDataUnsafe.user;
