@@ -28,7 +28,8 @@ function loadProgress(callback) {
     });
 }
 
-function saveProgress(key, value){
+function saveProgress(key, jsonValue){
+    var value = JSON.parse(jsonValue);
     setValue(key, value);
 }
 
