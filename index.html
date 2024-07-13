@@ -19,7 +19,11 @@
         document.addEventListener('DOMContentLoaded', function() {         
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand();
-            console.log(window.Telegram.WebApp.version);
+
+            loadProgress().then(values => {
+                console.log('Values from loadProgress:', values);
+            });
+     
             var user = window.Telegram.WebApp.initDataUnsafe.user;
 
             var userData = {
@@ -75,6 +79,7 @@
         <canvas id="unity-canvas"></canvas>
     </div>
     <script src="Core/loading-screen.js" type="text/javascript"></script>
+    <script src="Core/storage-service.js" type="text/javascript"></script>
     <script>
        // const platformInfoElement = document.getElementById('platform-info');
        // const platform = Telegram.WebApp.platform;   

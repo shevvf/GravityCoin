@@ -15,9 +15,9 @@
   var buildUrl = "Build";
   var loaderUrl = buildUrl + "/GravityCoin.loader.js";
   var config = {
-    dataUrl: buildUrl + "/GravityCoin.data.unityweb",
-    frameworkUrl: buildUrl + "/GravityCoin.framework.js.unityweb",
-    codeUrl: buildUrl + "/GravityCoin.wasm.unityweb",
+    dataUrl: buildUrl + "/GravityCoin.data",
+    frameworkUrl: buildUrl + "/GravityCoin.framework.js",
+    codeUrl: buildUrl + "/GravityCoin.wasm",
     streamingAssetsUrl: "StreamingAssets",
     companyName: "DefaultCompany",
     productName: "AIVIKTestTask",
