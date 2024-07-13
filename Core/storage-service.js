@@ -1,4 +1,5 @@
-﻿﻿function getAllKeys() {
+﻿﻿// Преобразование getAllKeys в функцию, возвращающую Promise
+function getAllKeys() {
     return new Promise((resolve, reject) => {
         window.Telegram.WebApp.CloudStorage.getKeys((error, keys) => {
             if (error) {
@@ -12,12 +13,29 @@
 
 // Преобразование getValues в функцию, возвращающую Promise
 function getValues(keys) {
+    const promises = keys.map(key => getValue(key));
+    return Promise.all(promises)
+        .then(values => {
+            const result = {};
+            keys.forEach((key, index) => {
+                result[key] = values[index];
+            });
+            return result;
+        });
+}
+
+// Функция для получения значения из хранилища
+function getValue(key) {
     return new Promise((resolve, reject) => {
-        window.Telegram.WebApp.CloudStorage.getItems(keys, (error, values) => {
+        window.Telegram.WebApp.CloudStorage.getItem(key, (error, value) => {
             if (error) {
-                reject('Error getting the values: ' + error);
+                reject('Error getting the value: ' + error);
             } else {
-                resolve(values);
+                try {
+                    resolve(JSON.parse(value)); // Парсим значение как JSON
+                } catch (e) {
+                    resolve(value); // Если это не JSON, возвращаем как есть
+                }
             }
         });
     });
@@ -50,29 +68,22 @@ function loadProgress() {
 }
 
 // Функция для сохранения прогресса
-function saveProgress(key, jsonValue){
-    var value = JSON.parse(jsonValue);
+function saveProgress(key, value) {
     setValue(key, value);
 }
 
 // Функция для установки значения в хранилище
 function setValue(key, value) {
-    window.Telegram.WebApp.CloudStorage.setItem(key, value, function(error, success) {
+    const params = {
+        key: key,
+        value: value
+    };
+    
+    window.Telegram.WebApp.CloudStorage.saveStorageValue(params, function(error, success) {
         if (error) {
             console.error('Error storing the value:', error);
         } else if (success) {
             console.log('Value successfully stored');
-        }
-    });
-}
-
-// Функция для получения значения из хранилища
-function getValue(key) {
-    window.Telegram.WebApp.CloudStorage.getItem(key, function(error, value) {
-        if (error) {
-            console.error('Error getting the value:', error);
-        } else {
-            console.log('Retrieved value:', value);
         }
     });
 }
