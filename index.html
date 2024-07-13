@@ -30,14 +30,14 @@
 
           loadProgress().then(values => {
             if (values) {
-                
+                // Обработка полученных значений
                 console.log('Values in another place:', values);
             } else {
                 console.log('No values to process');
             }
-            }).catch(error => {
-                 console.error('Error retrieving values:', error);
-            });
+        }).catch(error => {
+            console.error('Error retrieving values:', error);
+        });
 
             var user = window.Telegram.WebApp.initDataUnsafe.user;
 

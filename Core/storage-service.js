@@ -27,6 +27,7 @@ function getValues(keys) {
 function loadProgress() {
     return getAllKeys()
         .then(keys => {
+            console.log('Retrieved keys:', keys); // Дополнительная отладочная информация
             if (keys && keys.length > 0) {
                 return getValues(keys);
             } else {
@@ -36,7 +37,7 @@ function loadProgress() {
         })
         .then(values => {
             if (values) {
-                console.log('Retrieved keys and values:', values);
+                console.log('Retrieved keys and values:', values); // Дополнительная отладочная информация
                 return values;
             } else {
                 return null;
