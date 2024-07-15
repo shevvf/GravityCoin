@@ -1,50 +1,31 @@
-﻿﻿function getAllKeys() {
-    return new Promise((resolve, reject) => {
-        window.Telegram.WebApp.CloudStorage.getKeys((error, keys) => {
-            if (error) {
-                reject('Error getting the keys: ' + error);
-            } else {
-                resolve(keys);
-            }
-        });
-    });
-}
-
-function getValues(keys) {
-    return new Promise((resolve, reject) => {
-        window.Telegram.WebApp.CloudStorage.getItems(keys, (error, values) => {
-            if (error) {
-                reject('Error getting the values: ' + error);
-            } else {
-                resolve(values);
-            }
-        });
-    });
-}
-
-function loadProgress() {
-    return getAllKeys()
-        .then(keys => {
-            console.log('Retrieved keys:', keys);
-            if (keys && keys.length > 0) {
-                return getValues(keys);
-            } else {
-                console.log('No keys found in storage');
-                return null;
-            }
-        })
-        .then(values => {
-            if (values) {
+﻿﻿function loadProgres(){
+    getAllKeys(function(keys) {
+        if (keys && keys.length > 0) {
+            getValues(keys, function(values) {
                 console.log('Retrieved keys and values:', values);
-                return values;
-            } else {
-                return null;
+            });
+        } else {
+            console.log('No keys found in storage');
+        }
+    });
+}
+
+function loadProgress(callback) {
+    getAllKeys(function(keys) {
+        if (keys && keys.length > 0) {
+            getValues(keys, function(values) {
+                console.log('Retrieved keys and values:', values);
+                if (callback) {
+                    callback(values);
+                }
+            });
+        } else {
+            console.log('No keys found in storage');
+            if (callback) {
+                callback(null);
             }
-        })
-        .catch(error => {
-            console.error('Error retrieving keys and values:', error);
-            return null;
-        });
+        }
+    });
 }
 
 function saveProgress(key, jsonValue){
@@ -72,6 +53,16 @@ function getValue(key) {
     });
 }
 
+function getValues(keys) {
+    window.Telegram.WebApp.CloudStorage.getItems(keys, function(error, values) {
+        if (error) {
+            console.error('Error getting the values:', error);
+        } else {
+            console.log('Retrieved values:', values);
+        }
+    });
+}
+
 function removeValue(key) {
     window.Telegram.WebApp.CloudStorage.removeItem(key, function(error, success) {
         if (error) {
@@ -88,6 +79,16 @@ function removeValues(keys) {
             console.error('Error removing the values:', error);
         } else if (success) {
             console.log('Values successfully removed');
+        }
+    });
+}
+
+function getAllKeys() {
+    window.Telegram.WebApp.CloudStorage.getKeys(function(error, keys) {
+        if (error) {
+            console.error('Error getting the keys:', error);
+        } else {
+            console.log('Retrieved keys:', keys);
         }
     });
 }
