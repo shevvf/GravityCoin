@@ -20,8 +20,9 @@
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand();
 
-            var user = window.Telegram.WebApp.initDataUnsafe.user;
-
+            var webAppInitData = window.Telegram.WebApp.initDataUnsafe;
+            var user = webAppInitData.user;
+           
             var userData = {
                 id: user.id,
                 firstName: user.first_name,
@@ -30,7 +31,7 @@
                 languageCode: user.language_code || '',
                 photoUrl: user.photo_url || '',
                 isPremium: user.is_premium || false,
-                joinedBy: user.start_param || ''
+                joinedBy: webAppInitData.start_param || ''
             };   
             userDataJson = JSON.stringify(userData);
         });
