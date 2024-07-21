@@ -15,9 +15,9 @@
   var buildUrl = "Build";
   var loaderUrl = buildUrl + "/9853637125e801e9aae48e78dbbdcfca.loader.js";
   var config = {
-    dataUrl: buildUrl + "/90bff08ed8bbdb6132eda7449967ab92.data.unityweb",
-    frameworkUrl: buildUrl + "/072978703dce2ff9cb44d85b65d85cde.framework.js.unityweb",
-    codeUrl: buildUrl + "/2efa33ed678b2e9914ef67b9a8ce5975.wasm.unityweb",
+    dataUrl: buildUrl + "/9d9ddc9162f82b808a309b5fc757ef06.data.unityweb",
+    frameworkUrl: buildUrl + "/307a174c5a2e6251b50dedff1f40717f.framework.js.unityweb",
+    codeUrl: buildUrl + "/a9347223cec1524d860f68a4ae55a4af.wasm.unityweb",
     streamingAssetsUrl: "StreamingAssets",
     companyName: "DefaultCompany",
     productName: "AIVIKTestTask",

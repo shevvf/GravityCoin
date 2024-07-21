@@ -56,10 +56,10 @@
 
 </head>
 <body>
-    <!-- <div id="platform-info">
+    <div id="platform-info">
         <h1>Пожалуйста, используйте мобильное устройство</h1>
         <img src="Graphics/background.jpg" alt="Play on mobile" style="width: 100%; height: auto;">
-    </div> -->
+    </div>
     <div id="loading-screen">
         <div id="shadow"></div>
         <div class="logo"></div>
@@ -77,18 +77,20 @@
     <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas"></canvas>
     </div>
-    <script src="Core/loading-screen.js" type="text/javascript"></script>
-    <script src="Core/invite-service.js" type="text/javascript"></script>
+    <!-- <script src="Core/loading-screen.js" type="text/javascript"></script>
+    <script src="Core/invite-service.js" type="text/javascript"></script> -->
     <script>
-       // const platformInfoElement = document.getElementById('platform-info');
-       // const platform = Telegram.WebApp.platform;   
-       //     if (platform !== 'ios' && platform !== 'android') {
-       //         platformInfoElement.style.display = 'block';
-       //     } else {
-       //         const script = document.createElement('script');
-       //         script.src = 'Core/loading-screen.js';
-       //         document.body.appendChild(script);
-       //     }
+        const platformInfoElement = document.getElementById('platform-info');
+        const platform = Telegram.WebApp.platform;   
+        if (platform === 'ios' || platform === 'android') {
+            ['Core/loading-screen.js', 'Core/invite-service.js'].forEach(src => {
+                const script = document.createElement('script');
+                script.src = src;
+                document.body.appendChild(script);
+            });
+        } else {
+            platformInfoElement.style.display = 'block';
+        }
     </script>
 </body>
 </html>
