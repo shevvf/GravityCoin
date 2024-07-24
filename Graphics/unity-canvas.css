@@ -1,6 +1,8 @@
 #unity-container {
     width: 100%;
     height: 100%;
+    transform: rotate(0deg);
+    transform-origin: 0 0;
 }
 
 #unity-canvas {
