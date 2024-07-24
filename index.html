@@ -16,6 +16,11 @@
     <link rel="manifest" href="manifest.webmanifest">
 
     <script>
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(function (error) {
+                console.log('Orientation lock failed: ', error);
+            });
+        }
         document.addEventListener('DOMContentLoaded', function() {         
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand();
