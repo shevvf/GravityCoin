@@ -21,7 +21,26 @@
       //          console.log('Orientation lock failed: ', error);
        //     });
        // }
+       const manifestUrl = 'manifest.webmanifest';
+       async function fetchManifest() {
+           try {
+               const response = await fetch(manifestUrl);
+               if (!response.ok) {
+                   throw new Error('Network response was not ok');
+               }
+               const manifest = await response.json();
+               console.log('Loaded manifest:', manifest);
 
+               if (!manifest.orientation) {
+                   manifest.orientation = 'landscape';
+                   console.log('Added landscape orientation to manifest.');
+               }
+               console.log('Updated manifest:', manifest);
+            } catch (error) {
+               console.error('Failed to fetch the manifest:', error);
+           }
+       }
+       fetchManifest();
         document.addEventListener('DOMContentLoaded', function() {         
             window.Telegram.WebApp.ready();
             window.Telegram.WebApp.expand();
